@@ -108,7 +108,7 @@ class FeedManager
 
             $item = new Item();
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc());
+            $item->setContent($entry->getShortDesc(660));
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
             $item->set('comments', $link.'#comments');
