@@ -17,6 +17,8 @@ use FeedIo\Feed;
 use FeedIo\Feed\Item;
 use FeedIo\Feed\Node\Category;
 use FeedIo\FeedInterface;
+use FeedIo\Rule\Link;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,6 +35,7 @@ class FeedManager
         private readonly RouterInterface $router,
         private readonly EntryFactory $entryFactory,
         private readonly Security $security,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -107,11 +110,12 @@ class FeedManager
                 ]);
 
             $item = new Item();
+            $url = $entry->url;
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc());
+            $item->setContent($entry->getShortDesc() . "\n" . $url);
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
-            $item->set('comments', $link.'#comments');
+            $item->set('comments', $url);
             $item->setPublicId(IriGenerator::getIriFromResource($entry));
             $item->setAuthor((new Item\Author())->setName($entry->user->username));
 
