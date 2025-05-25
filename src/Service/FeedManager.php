@@ -108,8 +108,9 @@ class FeedManager
 
             $item = new Item();
             $url = $entry->url;
+            $url_anchor = "<a href='$url' target='_blank'>{$url}</a>";
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc() . "\n" . $url);
+            $item->setContent($entry->getShortDesc() . " ({$url_anchor})");
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
             $item->set('comments', $url);
