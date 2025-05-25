@@ -17,8 +17,6 @@ use FeedIo\Feed;
 use FeedIo\Feed\Item;
 use FeedIo\Feed\Node\Category;
 use FeedIo\FeedInterface;
-use FeedIo\Rule\Link;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -35,7 +33,6 @@ class FeedManager
         private readonly RouterInterface $router,
         private readonly EntryFactory $entryFactory,
         private readonly Security $security,
-        private readonly LoggerInterface $logger,
     ) {
     }
 
