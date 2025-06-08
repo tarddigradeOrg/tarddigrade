@@ -108,12 +108,12 @@ class FeedManager
 
             $item = new Item();
             $item->setTitle($entry->title);
-            if ($entry->url == '') {
+            if ('' === $entry->url) {
                 $remote_anchor = '';
             } else {
                 $remote_anchor = "\n<a href='{$entry->url}' target='_blank'>Enlace original</a>";
             }
-            $item->setContent($entry->getShortDesc() . $remote_anchor);
+            $item->setContent($entry->getShortDesc().$remote_anchor);
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
             $item->set('comments', $link.'#comments');
