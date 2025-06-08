@@ -111,8 +111,7 @@ class FeedManager
             if ($entry->url == '') {
                 $remote_anchor = '';
             } else {
-                $remote_anchor = " (<a href='{$entry->url}' target='_blank'>{$entry->url}</a>)";
-                $item->set('source', $entry->url);
+                $remote_anchor = "\n<a href='{$entry->url}' target='_blank'>Enlace original</a>";
             }
             $item->setContent($entry->getShortDesc() . $remote_anchor);
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
