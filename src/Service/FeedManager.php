@@ -107,13 +107,12 @@ class FeedManager
                 ]);
 
             $item = new Item();
-            $url = $entry->url;
-            $url_anchor = "<a href='$url' target='_blank'>{$url}</a>";
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc() . " ({$url_anchor})");
+            $item->setContent($entry->getShortDesc() . " (<a href='{$entry->url}' target='_blank'>{$entry->url}</a>)");
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
-            $item->set('comments', $url);
+            $item->set('comments', $link.'#comments');
+            $item->set('source', $entry->url);
             $item->setPublicId(IriGenerator::getIriFromResource($entry));
             $item->setAuthor((new Item\Author())->setName($entry->user->username));
 
