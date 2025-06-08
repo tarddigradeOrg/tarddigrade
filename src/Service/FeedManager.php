@@ -109,9 +109,9 @@ class FeedManager
             $item = new Item();
             $item->setTitle($entry->title);
             if ('' === $entry->url) {
-                $item->setContent($entry->getShortDesc());
+                $item->setContent($entry->body);
             } else {
-                $item->setContent($entry->getShortDesc()."\n<a href='{$entry->url}' target='_blank'>Enlace original</a>");
+                $item->setContent($entry->body."\n\n<a href='{$entry->url}' target='_blank'>Enlace original</a>");
             }
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
