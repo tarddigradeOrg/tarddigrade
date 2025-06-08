@@ -108,11 +108,16 @@ class FeedManager
 
             $item = new Item();
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc() . " (<a href='{$entry->url}' target='_blank'>{$entry->url}</a>)");
+            if ($entry->url == '') {
+                $remote_anchor = '';
+            } else {
+                $remote_anchor = " (<a href='{$entry->url}' target='_blank'>{$entry->url}</a>)";
+                $item->set('source', $entry->url);
+            }
+            $item->setContent($entry->getShortDesc() . $remote_anchor);
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
             $item->set('comments', $link.'#comments');
-            $item->set('source', $entry->url);
             $item->setPublicId(IriGenerator::getIriFromResource($entry));
             $item->setAuthor((new Item\Author())->setName($entry->user->username));
 
