@@ -108,7 +108,11 @@ class FeedManager
 
             $item = new Item();
             $item->setTitle($entry->title);
-            $item->setContent($entry->getShortDesc());
+            if ('' === $entry->url) {
+                $item->setContent($entry->getShortDesc());
+            } else {
+                $item->setContent($entry->getShortDesc()."\n<a href='{$entry->url}' target='_blank'>Enlace original</a>");
+            }
             $item->setLastModified(\DateTime::createFromImmutable($entry->createdAt));
             $item->setLink($link);
             $item->set('comments', $link.'#comments');
